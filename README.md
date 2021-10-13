@@ -1,5 +1,10 @@
-# CurrencyCrawler
-Get tired of keeping track of currency exchange rate? This code will save you from this boring repetitive task.
-Once you set the targeting exchange rate, the system will send you notification whenever it reaches the target rate!
+# Currency Cralwer
 
-## Prerequisite
+Do you get tired of keeping your eyes on currency exchange rate?\
+This currency crawler relieve pain from annoying repetitive checking on Google.
+
+Two currency codes in your interest and your targeting rate are all you need to receive a notification when it reaches your target rate!
+
+## Pre-requsite
+
+**gspread**
