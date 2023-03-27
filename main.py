@@ -21,6 +21,3 @@ scheduler.start()
 if __name__ == '__main__':
     webhook_app.run(port=4041, debug=True, threaded=True)
     send_email_app.run(port=4999, debug=True, threaded=True)
-
-
-

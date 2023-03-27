@@ -3,3 +3,4 @@ currency_df.csv
 client_secret.json
 SecretKeys.py
 SheetAccess.py
+db.json

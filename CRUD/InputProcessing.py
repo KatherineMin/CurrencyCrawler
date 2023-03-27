@@ -42,7 +42,10 @@ def process_webhook_data(data):
         # Add new inputs to Notion database
         notion_page_df = get_notion_pages()
 
-        unique_id = max(notion_page_df['unique_id'])
+        try:
+            unique_id = max(notion_page_df['unique_id']) + 1
+        except ValueError:
+            unique_id = 0
 
         def create_notion_page(data: dict):
             create_url = "https://api.notion.com/v1/pages"
@@ -95,10 +98,11 @@ def process_webhook_data(data):
                 'values': [history_cols]
             }])
 
+            time_now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             work_sheet.update('D2', '=GOOGLEFINANCE("currency:"&B1&C1)', raw=False)
-            work_sheet.update('A2', '=NOW()', raw=False)
+            work_sheet.update('A2', f'{time_now}', raw=False)
 
             value_list = work_sheet.row_values(2)
-            value_list[0] = datetime.strptime(value_list[0], '%m/%d/%Y %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
+            # value_list[0] = datetime.strptime(value_list[0], '%m/%d/%Y %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
             work_sheet.update('A5:{}5'.format(string.ascii_uppercase[len(value_list)]),
                               [value_list])

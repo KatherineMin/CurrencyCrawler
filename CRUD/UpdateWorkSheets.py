@@ -36,6 +36,7 @@ def get_notion_pages():
 
         page_df.loc[i, :] = [page_id, unique_id, currency_from, currency_to, user_email, threshold, notification_date, last_edited_time]
 
+    print(page_df)
     return page_df
 
 
@@ -58,7 +59,7 @@ def update_values():
         last_row_values = value_lists[-1]
 
         new_row_values = value_lists[1]
-        new_row_values[0] = datetime.strptime(new_row_values[0], '%m/%d/%Y %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
+        new_row_values[0] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         new_row_values[change_idx] = (float(last_row_values[rate_idx]) + float(new_row_values[rate_idx]) - float(last_row_values[rate_idx])) / float(last_row_values[rate_idx])
 
         appending_row_idx = len(value_lists)+1

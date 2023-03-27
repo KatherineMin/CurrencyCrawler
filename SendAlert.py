@@ -36,7 +36,7 @@ def index():
                     
                     We have a good news for you today that the {row['currency_from']} to {row['currency_to']} exchange rate has reached {row['fx_rate']}.
                     
-                    The rate {row['fx_rate']} may be not exactly the same as the rate of your interest, {row['threshold']}, that you provided on {row['last_edited_time']}.
+                    The rate {row['fx_rate']} may be not exactly the same as the rate of your interest, {row['threshold']}, that you provided on {row['last_edited_time'][:10]}.
                     
                     But we consider {row['fx_rate']} is close enough to notify you as the error range of two rates is equal to or less than 0.001. 
                     
