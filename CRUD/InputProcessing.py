@@ -1,7 +1,12 @@
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
+
 import SheetAccess
-import SecretKeys
 from .UpdateWorkSheets import get_notion_pages, headers
 
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 def process_webhook_data(data):
     import re
@@ -13,17 +18,17 @@ def process_webhook_data(data):
     email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
 
     # Extract CURRENCY_FROM from a submitted Google form
-    currency_from = re.findall(r'[A-Z]{3}', data[SecretKeys.CURRENCY_FROM])[0]
+    currency_from = re.findall(r'[A-Z]{3}', data[os.getenv('CURRENCY_FROM')])[0]
     # Extract CURRENCY_TO from a submitted Google form
-    currency_to = re.findall(r'[A-Z]{3}', data[SecretKeys.CURRENCY_TO])[0]
+    currency_to = re.findall(r'[A-Z]{3}', data[os.getenv('CURRENCY_TO')])[0]
     # Extract an exchange rate threshold from a submitted Google form
-    threshold_rate = float(data[SecretKeys.THRESHOLD_RATE])
+    threshold_rate = float(data[os.getenv('THRESHOLD_RATE')])
     # Extract USER_EMAIL from a submitted Google form
-    user_email = data[SecretKeys.USER_EMAIL]
+    user_email = data[os.getenv('USER_EMAIL')]
 
     # Extract a due date of the notification from a submitted Google form
     try:
-        notification_date = data[SecretKeys.NOTIFICATION_DATE]
+        notification_date = data[os.getenv('NOTIFICATION_DATE')]
         notification_date = datetime.strptime(notification_date, '%Y-%m-%d')
     except ValueError:
         # Exception - when a user didn't provide a due date
@@ -50,7 +55,7 @@ def process_webhook_data(data):
         def create_notion_page(data: dict):
             create_url = "https://api.notion.com/v1/pages"
 
-            payload = {"parent": {"database_id": SecretKeys.NOTION_DATABASE_ID}, "properties": data}
+            payload = {"parent": {"database_id": os.getenv('NOTION_DATABASE_ID')}, "properties": data}
 
             response = requests.post(create_url, headers=headers, json=payload)
             print(response.json())
@@ -70,9 +75,9 @@ def process_webhook_data(data):
 
         # Retrieve work sheet
         try:
-            data_sheet = SheetAccess.gc.open(SecretKeys.EXCHANGE_RATE_SHEET)
+            data_sheet = SheetAccess.gc.open(os.getenv('EXCHANGE_RATE_SHEET'))
         except:
-            data_sheet = SheetAccess.gc.create(SecretKeys.EXCHANGE_RATE_SHEET)
+            data_sheet = SheetAccess.gc.create(os.getenv('EXCHANGE_RATE_SHEET'))
 
         max_rows = 40000
         n_col = 10

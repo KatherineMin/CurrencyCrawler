@@ -4,3 +4,8 @@ client_secret.json
 SecretKeys.py
 SheetAccess.py
 db.json
+*.DS_Store
+*.env
+*.pyc
+*.pyo
+*.log

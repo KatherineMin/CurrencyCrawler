@@ -1,17 +1,24 @@
 import SheetAccess
-import SecretKeys
+
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
+
 import pandas as pd
 import re
 import requests
 
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
 headers = {
-    "Authorization": "Bearer " + SecretKeys.NOTION_TOKEN,
+    "Authorization": "Bearer " + os.getenv('NOTION_TOKEN'),
     "Content-Type": "application/json",
     "Notion-Version": "2022-06-28"
 }
 
 def get_notion_pages():
-    url = f"https://api.notion.com/v1/databases/{SecretKeys.NOTION_DATABASE_ID}/query"
+    url = f"https://api.notion.com/v1/databases/{os.getenv('NOTION_DATABASE_ID')}/query"
 
     payload = {"page_size": 100}
     response = requests.post(url, json=payload, headers=headers)
@@ -42,7 +49,7 @@ def get_notion_pages():
 
 def update_values():
 
-    data_sheet = SheetAccess.gc.open(SecretKeys.EXCHANGE_RATE_SHEET)
+    data_sheet = SheetAccess.gc.open(os.getenv('EXCHANGE_RATE_SHEET'))
     worksheet_list = data_sheet.worksheets()
     worksheet_list = [re.findall("'([^']*)'", str(e))[0] for e in worksheet_list]
 

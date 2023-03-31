@@ -1,5 +1,8 @@
-import SecretKeys
 from CRUD import UpdateWorkSheets
+
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
 
 from flask import Flask
 from flask_mail import Mail, Message
@@ -7,10 +10,13 @@ from flask_mail import Mail, Message
 app = Flask(__name__)
 mail = Mail(app)
 
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = SecretKeys.MAIL_USERNAME
-app.config['MAIL_PASSWORD'] = SecretKeys.MAIL_PASSWORD
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_SUPPRESS_SEND'] = False
@@ -46,9 +52,9 @@ def index():
                     
                     Katherine Min
                     
-                    * Your feedbacks are essential to improve our app. Please contact at {SecretKeys.MAIL_USERNAME} or reply to this email is you'd like to give any feedbacks.
+                    * Your feedbacks are essential to improve our app. Please contact at {os.getenv('MAIL_USERNAME')} or reply to this email is you'd like to give any feedbacks.
                 """,
-                sender=SecretKeys.MAIL_USERNAME
+                sender=os.getenv('MAIL_USERNAME')
             )
 
             mail.send(msg)
