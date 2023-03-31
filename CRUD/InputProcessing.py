@@ -8,6 +8,7 @@ from .UpdateWorkSheets import get_notion_pages, headers
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
+
 def process_webhook_data(data):
     import re
     import requests
@@ -48,7 +49,7 @@ def process_webhook_data(data):
         notion_page_df = get_notion_pages()
 
         try:
-            unique_id = max(int(notion_page_df['unique_id'])) + 1
+            unique_id = int(max(notion_page_df['unique_id'])) + 1
         except ValueError:
             unique_id = 0
 
