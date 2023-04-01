@@ -1,10 +1,12 @@
-# Currency Cralwer
+# Exchange Rate Alert App
 
-Do you get tired of keeping your eyes on currency exchange rate?\
-This currency crawler relieve pain from annoying repetitive checking on Google.
+_**Are you tired of keeping an eye on currency exchange rate?**_
 
-Two currency codes in your interest and your targeting rate are all you need to receive a notification when it reaches your target rate!
+This app will help you stop searching on Google. All it asks is a pair of currencies (exchange-from & exchange-to), a rate of your interest, and your email (An expiry date of watching is optional).
+No signup or anything else is required!
 
-## Pre-requsite
+Once you submit a request at https://forms.gle/zS8u8P49dMfYm6TP7 through Google form, we will email you whenever the exchange rate meets your interest.
 
-**gspread**
+
+## Workflow
+![](../../Downloads/ExchangeRateAlert_WorkFlow.jpg)
