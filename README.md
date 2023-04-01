@@ -9,4 +9,4 @@ Once you submit a request at https://forms.gle/zS8u8P49dMfYm6TP7 through Google 
 
 
 ## Workflow
-![](../../Downloads/ExchangeRateAlert_WorkFlow.jpg)
+![workflow](https://raw.githubusercontent.com/KatherineMin/CurrencyCrawler/master/ExchangeRateAlert_WorkFlow.jpg)
