@@ -12,7 +12,8 @@ scheduler.add_job(
     trigger='cron',
     day_of_week='mon-fri',
     minute='0',
-    id='get_email_recipients'
+    id='get_email_recipients',
+    misfire_grace_time=1800
 )
 
 scheduler.start()
